@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background: #ededf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Style the quiz modal login page */
+.quiz-login {
+    color: #A09FB1;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    pointer-events: visible;
+    background: #1E213A;
+    text-align: center;
+    width: 60%
+}
+@media screen and (max-width: 768px) {
+    .quiz-login {
+        height: 100vh;
+        border-radius: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%
+    }
+}
+  
+
+form > * {
+    padding: 5px;
+    margin: 5px;
+}
+
+button {
+    background: #100E1D;
+    color: #A09FB1;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 25px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #302b4e;
+    
+}
+  
+
+/* Quiz page */
+#quiz-page {
+    background:rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
