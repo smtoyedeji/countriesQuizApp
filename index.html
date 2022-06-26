@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="quiz-login">
-        <div class="container">
+    <div class="login-page">
+        <div class="quiz-login">
             <p>Welcome to Countries and their Capital Cities Quiz App. There is a price waiting for you at the end of the quiz.</p>
             <p>Select the number of questions you will love to attempt</p>
             <form>
@@ -22,15 +22,18 @@
                 <input type="radio" name="numberOfQuestions" value="20" id="20">
                 <label for="20">20</label>
                 <br>
-                <button type="submit" name="submit" value="Submit" id="enter">Enter Quiz</button>
+                <button type="submit" name="submit" value="Submit" id="enter-quiz">Enter Quiz</button>
             </form>
         </div>
     </div>
-    
-    <div id="quiz-page">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum quas nihil doloremque perspiciatis laboriosam dicta, reiciendis quidem velit quam dignissimos distinctio nostrum non? Tempore sapiente ex quis veniam ipsa nemo!</p>
+
+    <div class="quiz-container">
+        <div id="quiz-page">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum quas nihil doloremque perspiciatis laboriosam dicta, reiciendis quidem velit quam dignissimos distinctio nostrum non? Tempore sapiente ex quis veniam ipsa nemo!</p>
+            <button id="close-quiz">Close Quiz</button>
+        </div>
     </div>
     
-    <script src="./main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
