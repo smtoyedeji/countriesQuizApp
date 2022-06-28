@@ -15,22 +15,28 @@ body {
 }
 
 /* Style the quiz modal login page */
-.login-page {
+.enter-quiz {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.quiz-login {
+.enter-quiz h1 {
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+.quiz-details {
     color: #A09FB1;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     padding: 20px;
     background: #1E213A;
     text-align: center;
-    width: 60%;  
+    width: 600px;
     opacity: 1;  
 }
 
@@ -45,12 +51,7 @@ body {
         width: 100%
     }
 }
-  
 
-form > * {
-    padding: 5px;
-    margin: 5px;
-}
 
 button {
     background: #100E1D;
@@ -79,13 +80,13 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
     pointer-events: visible;
     opacity: 1;
+    overflow-y: scroll;
 }
 
 button {

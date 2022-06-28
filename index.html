@@ -8,31 +8,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-page">
-        <div class="quiz-login">
-            <p>Welcome to Countries and their Capital Cities Quiz App. There is a price waiting for you at the end of the quiz.</p>
-            <p>Select the number of questions you will love to attempt</p>
-            <form>
-                <input type="radio" name="numberOfQuestions" value="5" id="5">
-                <label for="5">5</label>
-                <input type="radio" name="numberOfQuestions" value="10" id="10">
-                <label for="10">10</label>
-                <input type="radio" name="numberOfQuestions" value="15" id="15">
-                <label for="15">15</label>
-                <input type="radio" name="numberOfQuestions" value="20" id="20">
-                <label for="20">20</label>
-                <br>
-                <button type="submit" name="submit" value="Submit" id="enter-quiz">Enter Quiz</button>
+    <div class="enter-quiz">
+        <div class="quiz-details">
+            <h1>Test your knowledge of Geography with this Quiz App</h1>
+            <form id="quiz-form" >
+                <div id="numberOfQuestions">
+                    <p>Select the number of questions you will love to attempt</p>
+                    <input type="radio" name="numberOfQuestions" value="5" id="5" required>
+                    <label for="5">5</label>
+                    <input type="radio" name="numberOfQuestions" value="10" id="10">
+                    <label for="10">10</label>
+                    <input type="radio" name="numberOfQuestions" value="15" id="15">
+                    <label for="15">15</label>
+                    <input type="radio" name="numberOfQuestions" value="20" id="20">
+                    <label for="20">20</label>
+                </div>
+                <div id="difficultyLevel">
+                    <p>Difficulty level</p>
+                    <label for="easy">Easy</label>
+                    <input type="radio" name="difficulty" value="easy" id="easy" required>
+                    <label for="Medium">Medium</label>
+                    <input type="radio" name="difficulty" value="medium" id="medium">
+                    <label for="Hard">Hard</label>
+                    <input type="radio" name="difficulty" value="hard" id="hard">
+                </div>
+
+                <button type="submit" name="submit" value="Submit" id="enter-btn">Enter Quiz</button>
             </form>
         </div>
     </div>
 
-    <div class="quiz-container">
-        <div id="quiz-page">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum quas nihil doloremque perspiciatis laboriosam dicta, reiciendis quidem velit quam dignissimos distinctio nostrum non? Tempore sapiente ex quis veniam ipsa nemo!</p>
-            <button id="close-quiz">Close Quiz</button>
-        </div>
-    </div>
+    <section class="quiz-container">
+        <ol id="quiz-page">
+        </ol>
+        <button id="close-btn">Close Quiz</button>
+        
+    </section>
     
     <script src="main.js"></script>
 </body>
