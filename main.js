@@ -5,12 +5,11 @@ const closeBtn = document.querySelector("#close-btn");
 const quizContainer = document.querySelector(".quiz-container");
 const quizForm = document.querySelector("#quiz-form");
 const quizPage = document.querySelector("#quiz-page");
+const quiz = document.querySelector("#quiz");
+console.log(quiz)
+const submitQuiz = document.querySelector("#submit-quiz")
 
-
-// declare an empty to store data from form submit for quiz details
-let details = {};
-
-// create function to handle form submit
+// create function to handle form submission in quiz app
 function handleSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -18,13 +17,16 @@ function handleSubmit(e) {
     return value
 }
 
-//submit form data to get type of quiz and fetch data from API
+// declare an empty variable to store data from form submit for quiz API data
+let details = {};
+
+//submit quizForm data to get type of quiz and fetch data from API
 quizForm.addEventListener("submit", function(e) {
     details = handleSubmit(e);
     quizForm.reset();
     quizContainer.classList.add("active")
     enterQuiz.classList.add("hide")
-    fetchData();
+    fetchData().then(createQuiz)
 
 });
 
@@ -35,16 +37,18 @@ closeBtn.addEventListener("click", function(e){
     enterQuiz.classList.remove("hide")
 })
 
-//fetch data from local json file
+
+
+//fetch data from opentdb API
 //https://opentdb.com/api.php?amount=${details.numberOfQuestions}&category=22&difficulty=${details.difficulty}&type=multiple
 
+// create global variable data from API call
+let data;
 
 async function fetchData() {
     let res = await fetch(`https://opentdb.com/api.php?amount=${details.numberOfQuestions}&category=22&difficulty=${details.difficulty}&type=multiple`);
-    let data = await res.json();
-    data = data.results;
-    console.log(data)
-    createQuiz(data);
+    data = await res.json();
+    return data = data.results;    
 }
 
 //remove quize correct and incorrect answers from data
@@ -58,6 +62,12 @@ function getOptions(data) {
     }
     return sliceIntoChunks(option, 4);
 }
+
+//shuffle function to shuffle options
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+}
+
 
 //option into chunks to get options into chunks of arrays
 function sliceIntoChunks(arr, chunkSize) {
@@ -76,14 +86,24 @@ function createQuiz(data) {
     }).join('');
 
     let options = getOptions(data);
-    console.log(options)
-
     const questions = Array.from(document.querySelectorAll(".questions"));
     
     for(let i = 0; i < questions.length; i++){
+        //shuffle options
+        shuffle(options[i]);
+        //create radio buttons for options
         questions[i].innerHTML += options[i].map(item => {
-            return `<input type="radio" value=${item}>${item}</input>`
+            return `<input type="radio" name=${i} value=${item}>${item}</input>`
         }).join('');
-    }
-    
+        
+    }    
 }
+
+
+
+
+
+
+
+
+
