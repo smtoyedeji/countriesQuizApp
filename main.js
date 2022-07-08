@@ -37,6 +37,12 @@ closeBtn.addEventListener("click", function(e){
     enterQuiz.classList.remove("hide")
 })
 
+//submit quiz
+quiz.addEventListener("submit", function(e) {
+    e.preventDefault();
+    scoreQuiz(e);  
+})
+
 
 
 //fetch data from opentdb API
@@ -99,7 +105,21 @@ function createQuiz(data) {
     }    
 }
 
-
+//get score for quiz
+function scoreQuiz(e) {
+    let score = 0;
+    let answers = handleSubmit(e);
+    //convert answers to array
+    answers = Object.values(answers);
+    console.log(answers)
+    //get correct answers from API data
+    let correct_answer = data.map(a => a.correct_answer.split(' ').shift());
+    console.log(correct_answer)
+    //compare answers from quiz to correct answers from API data
+    score = correct_answer.filter(el => answers.includes(el));
+    //log score to console
+    console.log(score.length);    
+  }
 
 
 
