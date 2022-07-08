@@ -8,6 +8,7 @@ const quizPage = document.querySelector("#quiz-page");
 const quiz = document.querySelector("#quiz");
 console.log(quiz)
 const submitQuiz = document.querySelector("#submit-quiz")
+const displayScore = document.querySelector("#display-score");
 
 // create function to handle form submission in quiz app
 function handleSubmit(e) {
@@ -35,12 +36,14 @@ closeBtn.addEventListener("click", function(e){
     e.preventDefault();
     quizContainer.classList.remove("active")
     enterQuiz.classList.remove("hide")
+    displayScore.innerHTML = "";
 })
 
 //submit quiz
 quiz.addEventListener("submit", function(e) {
     e.preventDefault();
-    scoreQuiz(e);  
+    scoreQuiz(e); 
+    quiz.reset(); 
 })
 
 
@@ -57,7 +60,7 @@ async function fetchData() {
     return data = data.results;    
 }
 
-//remove quize correct and incorrect answers from data
+//remove quiz correct and incorrect answers from data
 function getOptions(data) {
     let option = [];
     for (let i = 0; i < data.length; i++) {
@@ -115,11 +118,13 @@ function scoreQuiz(e) {
     //get correct answers from API data
     let correct_answer = data.map(a => a.correct_answer.split(' ').shift());
     console.log(correct_answer)
+    let corrections = correct_answer.filter(x => !answers.includes(x));
     //compare answers from quiz to correct answers from API data
     score = correct_answer.filter(el => answers.includes(el));
     //log score to console
-    console.log(score.length);    
-  }
+    console.log(score.length); 
+    displayScore.innerHTML = `<p>You got ${score.length} out of ${details.numberOfQuestions} questions correct!</p>`;
+}
 
 
 
