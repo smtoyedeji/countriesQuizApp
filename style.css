@@ -78,7 +78,6 @@ button:hover {
 #quiz-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     top: 0;
     left: 0;
@@ -86,7 +85,6 @@ button:hover {
     width: 100%;
     pointer-events: visible;
     opacity: 1;
-    overflow-y: scroll;
 }
 
 button {
@@ -100,3 +98,57 @@ button {
 .hide {
     display: none;
 }
+
+/* style quiz page */
+
+#quiz-page {
+    list-style: none;
+    counter-reset: my-awesome-counter;
+}
+
+.questions {
+    background: #1E213A;
+    color: #E7E7EB;
+    padding: 5px 20px;
+    font-size: 12px;
+    margin: 5px;
+    width: 90%;
+    counter-increment: my-awesome-counter;
+    margin: 0.25rem;
+}
+
+
+.questions::before {
+    content: counter(my-awesome-counter);
+    background: #662974;
+    width: 2rem;
+    height: inherit;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 2rem;
+    color: white;
+    text-align: center;
+}
+
+
+
+#submit-quiz {
+    display: block;
+    margin: 0 auto;
+}
+
+
+#display-results {
+    margin: 20px;  
+    text-align: center;
+    padding: 20px;
+}
+
+
+@media screen and (min-width: 1025px) {
+    
+}
+
+
+
+
