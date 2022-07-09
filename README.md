@@ -6,7 +6,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://smtoyedeji.github.io/geographyQuizApp/">
+    <a href="https://smtoyedeji.github.io/geographyQuizApp/" target="_blank">
       Live Website
     </a>
     <span> | </span>
