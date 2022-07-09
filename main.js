@@ -6,19 +6,20 @@ const quizContainer = document.querySelector(".quiz-container");
 const quizForm = document.querySelector("#quiz-form");
 const quizPage = document.querySelector("#quiz-page");
 const quiz = document.querySelector("#quiz");
-console.log(quiz)
-const submitQuiz = document.querySelector("#submit-quiz")
+const submitQuiz = document.querySelector("#submit-quiz");
 const displayScore = document.querySelector("#display-score");
 
 // create function to handle form submission in quiz app
 function handleSubmit(e) {
     e.preventDefault();
+    //create formdata object to store form data in variable data
     const data = new FormData(e.target);
+    //transform key value pairs into object and store in variable value
     const value = Object.fromEntries(data.entries());
     return value
 }
 
-// declare an empty variable to store data from form submit for quiz API data
+// declare an empty variable to store data from form submit to get data from API
 let details = {};
 
 //submit quizForm data to get type of quiz and fetch data from API
@@ -31,7 +32,7 @@ quizForm.addEventListener("submit", function(e) {
 
 });
 
-
+//close quiz app
 closeBtn.addEventListener("click", function(e){
     e.preventDefault();
     quizContainer.classList.remove("active")
@@ -52,33 +53,33 @@ quiz.addEventListener("submit", function(e) {
 //https://opentdb.com/api.php?amount=${details.numberOfQuestions}&category=22&difficulty=${details.difficulty}&type=multiple
 
 // create global variable data from API call
-let data;
+let quizData;
 
 async function fetchData() {
-    let res = await fetch(`https://opentdb.com/api.php?amount=${details.numberOfQuestions}&category=22&difficulty=${details.difficulty}&type=multiple`);
-    data = await res.json();
-    return data = data.results;    
+    let response = await fetch(`https://opentdb.com/api.php?amount=${details.numberOfQuestions}&category=22&difficulty=${details.difficulty}&type=multiple`);
+    quizData = await response.json();
+    return quizData = quizData.results;    
 }
 
-//remove quiz correct and incorrect answers from data
-function getOptions(data) {
+//create array of correct and incorrect answers from quizData
+function getOptions(quizData) {
     let option = [];
-    for (let i = 0; i < data.length; i++) {
-        option.push(data[i].correct_answer);
-        option.push(data[i].incorrect_answers[0]);
-        option.push(data[i].incorrect_answers[1]);
-        option.push(data[i].incorrect_answers[2]);
+    for (let i = 0; i < quizData.length; i++) {
+        option.push(quizData[i].correct_answer);
+        option.push(quizData[i].incorrect_answers[0]);
+        option.push(quizData[i].incorrect_answers[1]);
+        option.push(quizData[i].incorrect_answers[2]);
     }
     return sliceIntoChunks(option, 4);
 }
 
-//shuffle function to shuffle options
+//shuffle correct and incorrect options
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
 }
 
 
-//option into chunks to get options into chunks of arrays
+//create chunks from options array, each chunk for one question
 function sliceIntoChunks(arr, chunkSize) {
     const res = [];
     for (let i = 0; i < arr.length; i += chunkSize) {
@@ -89,12 +90,14 @@ function sliceIntoChunks(arr, chunkSize) {
 }
 
 //create quiz questions and options for answers
-function createQuiz(data) {
-    quizPage.innerHTML = data.map(item => {
+function createQuiz(quizData) {
+    quizPage.innerHTML = quizData.map(item => {
         return `<li class="questions"><p>${item.question}</p></li>`
     }).join('');
 
-    let options = getOptions(data);
+    //array of correct and incorrect answers from quizData stored in variable options
+    let options = getOptions(quizData);
+
     const questions = Array.from(document.querySelectorAll(".questions"));
     
     for(let i = 0; i < questions.length; i++){
@@ -114,11 +117,9 @@ function scoreQuiz(e) {
     let answers = handleSubmit(e);
     //convert answers to array
     answers = Object.values(answers);
-    console.log(answers)
     //get correct answers from API data
-    let correct_answer = data.map(a => a.correct_answer.split(' ').shift());
+    let correct_answer = quizData.map(a => a.correct_answer.split(' ').shift());
     console.log(correct_answer)
-    let corrections = correct_answer.filter(x => !answers.includes(x));
     //compare answers from quiz to correct answers from API data
     score = correct_answer.filter(el => answers.includes(el));
     //log score to console
