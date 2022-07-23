@@ -16,7 +16,7 @@ function handleSubmit(e) {
     const data = new FormData(e.target);
     //transform key value pairs into object and store in variable value
     const value = Object.fromEntries(data.entries());
-    return value
+    return value;
 }
 
 // declare an empty variable to store data from form submit to get data from API
@@ -25,6 +25,7 @@ let details = {};
 //submit quizForm data to get type of quiz and fetch data from API
 quizForm.addEventListener("submit", function(e) {
     details = handleSubmit(e);
+    console.log(details)
     quizForm.reset();
     quizContainer.classList.add("active")
     enterQuiz.classList.add("hide")
@@ -105,7 +106,7 @@ function createQuiz(quizData) {
         shuffle(options[i]);
         //create radio buttons for options
         questions[i].innerHTML += options[i].map(item => {
-            return `<input type="radio" name=${i} value=${item}>${item}</input>`
+            return `<input type="radio" name=${i} value=${item.replace(/\s+/g, '')}>${item}</input>`
         }).join('');
         
     }    
@@ -115,10 +116,11 @@ function createQuiz(quizData) {
 function scoreQuiz(e) {
     let score = 0;
     let answers = handleSubmit(e);
+    console.log(answers)
     //convert answers to array
     answers = Object.values(answers);
     //get correct answers from API data
-    let correct_answer = quizData.map(a => a.correct_answer.split(' ').shift());
+    let correct_answer = quizData.map(a => a.correct_answer.replace(/\s+/g, ''));
     console.log(correct_answer)
     //compare answers from quiz to correct answers from API data
     score = correct_answer.filter(el => answers.includes(el));
