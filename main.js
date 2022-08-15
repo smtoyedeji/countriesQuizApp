@@ -8,6 +8,8 @@ const quizPage = document.querySelector("#quiz-page");
 const quiz = document.querySelector("#quiz");
 const submitQuiz = document.querySelector("#submit-quiz");
 const displayScore = document.querySelector("#display-score");
+const questions = document.querySelectorAll(".questions");
+
 
 // create function to handle form submission in quiz app
 function handleSubmit(e) {
@@ -90,6 +92,18 @@ function sliceIntoChunks(arr, chunkSize) {
     return res;
 }
 
+//function to compare elements in 2 arrays
+function compare(a, b) {
+    let corrections = [];
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+            corrections.push([i, a[i]]);
+        }
+    }
+    return corrections;
+}
+
+
 //create quiz questions and options for answers
 function createQuiz(quizData) {
     quizPage.innerHTML = quizData.map(item => {
@@ -116,22 +130,20 @@ function createQuiz(quizData) {
 function scoreQuiz(e) {
     let score = 0;
     let answers = handleSubmit(e);
-    console.log(answers)
-    //convert answers to array
+    //select values into array
     answers = Object.values(answers);
     //get correct answers from API data
     let correct_answer = quizData.map(a => a.correct_answer.replace(/\s+/g, ''));
-    console.log(correct_answer)
+    //compare the 2 arrays of correct_answers and answers
+    let k = compare(correct_answer, answers);
+    //string to output correct answers
+    let str = "";
+    for(let i = 0; i < k.length; i++){
+        str += `<p>Question ${k[i][0] + 1} answer is ${k[i][1]}</p>`
+    }
     //compare answers from quiz to correct answers from API data
     score = correct_answer.filter(el => answers.includes(el));
     //log score to console
     console.log(score.length); 
-    displayScore.innerHTML = `<p>You got ${score.length} out of ${details.numberOfQuestions} questions correct!</p>`;
+    displayScore.innerHTML = `<p>You got ${score.length} out of ${details.numberOfQuestions} questions correct!</p> <br> <p>${str}</p>`;    
 }
-
-
-
-
-
-
-
